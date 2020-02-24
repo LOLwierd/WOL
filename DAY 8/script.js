@@ -73,6 +73,7 @@ function inputOperator(operator) {
   prevInput = currentInput;
   calculationOperator = operator;
   currentInput = "0";
+  isDot = false;
 }
 function updateScreen(number) {
   calculatorScreen.value = number;

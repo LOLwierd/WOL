@@ -1,97 +1,95 @@
 // screen
 
-const calculatorScreen = document.querySelector('.calculator-screen')
+const calculatorScreen = document.querySelector(".calculator-screen");
 
-const updateScreen = (number) => {
-    calculatorScreen.value = number
-}
+const updateScreen = number => {
+  calculatorScreen.value = number;
+};
 
 // numbers
-const numbers = document.querySelectorAll("number")
+const numbers = document.querySelectorAll(".number");
+console.log(numbers);
+numbers.forEach(number => {
+  number.addEventListener("click", event => {
+    inputNumber(event.target.value);
+    updateScreen(currentInput);
+  });
+});
 
-numbers.forEach((number) => {
-    number.addEventListener("click", (event) => {
-        inputNumber(event.target.value)
-        updateScreen(currentInput)
-    })
-})
+let prevInput = "0";
+let calculationOperator = "";
+let currentInput = "0";
 
-
-let prevInput = '0'
-let calculationOperator = ''
-let currentInput = '0'
-
-const inputNumber = (number)=>{
-    if(currentInput ==='0')
-    {
-        currentInput = number
-    }
-    else
-    {
-        currentInput += number
-    }
-}
-
+const inputNumber = number => {
+  if (currentInput === "0") {
+    currentInput = number;
+  } else {
+    currentInput += number;
+  }
+};
 
 //operator
-const operators = document.querySelectorAll(".operator")
+const operators = document.querySelectorAll(".operator");
 
-operators.forEach((operator) => {
-    operator.addEventListener("click", (event) => {
-        inputOperator(event.target.value)
-    })
-})
+operators.forEach(operator => {
+  operator.addEventListener("click", event => {
+    inputOperator(event.target.value);
+  });
+});
 
-const inputOperator = (operator) => {
-    prevInput = currentInput
-    calculationOperator = operator
-    currentInput = '0'
-}
+const inputOperator = operator => {
+  if (calculationOperator) {
+    calculate();
+    updateScreen(currentInput);
+  }
+  prevInput = currentInput;
+  calculationOperator = operator;
+  currentInput = "0";
+};
 
 //equal
-const equalSign = document.querySelector('.equal-sign')
+const equalSign = document.querySelector(".equal-sign");
 
-equalSign.addEventListener('click',() => {
-    calculate()
-    updateScreen(currentInput)
-})
+equalSign.addEventListener("click", () => {
+  calculate();
+  updateScreen(currentInput);
+});
 
 //calculation
 
-const calculate = () =>{
-    let result = 0
-    switch(calculationOperator) {
-        case '+':
-            result = parseInt(prevInput) + parseInt(currentInput)
-            break
-        case '*':
-            result = parseInt(prevInput) * parseInt(currentInput)
-            break
-        case '-':
-            result = parseInt(prevInput) - parseInt(currentInput)
-            break
-        case '/':
-            result = parseInt(prevInput) / parseInt(currentInput)
-            break
-        default:
-            return
-    }
-    currentInput = result.toString()
-    calculationOperator = ''
-}
-
+const calculate = () => {
+  let result = 0;
+  switch (calculationOperator) {
+    case "+":
+      result = parseInt(prevInput) + parseInt(currentInput);
+      break;
+    case "*":
+      result = parseInt(prevInput) * parseInt(currentInput);
+      break;
+    case "-":
+      result = parseInt(prevInput) - parseInt(currentInput);
+      break;
+    case "/":
+      result = parseInt(prevInput) / parseInt(currentInput);
+      break;
+    default:
+      return;
+  }
+  currentInput = result.toString();
+  calculationOperator = "";
+};
 
 //AC
 
-const clearBtn = document.querySelector('.all-clear')
+const clearBtn = document.querySelector(".all-clear");
 
-clearBtn.addEventListener('click', () => {
-    clearAll()
-    updateScreen(currentInput)
-})
+clearBtn.addEventListener("click", () => {
+  clearAll();
+  updateScreen(currentInput);
+});
 
 const clearAll = () => {
-    let prevInput = '0'
-    let calculationOperator = ''
-    let currentInput = '0'
-}
+  prevInput = "0";
+  calculationOperator = "";
+  currentInput = "0";
+};

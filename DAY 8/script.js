@@ -6,6 +6,7 @@ const numbers = document.querySelectorAll(".number");
 let prevInput = "0";
 let calculationOperator = "";
 let currentInput = "0";
+let isDot = false;
 
 document.addEventListener("keyup", function(event) {
   var key = event.key || event.keyCode;
@@ -46,16 +47,19 @@ function clearAll() {
   prevInput = "0";
   calculationOperator = "";
   currentInput = "0";
+  if (isDot) isDot = !isDot;
 }
 function equals() {
   calculate();
   updateScreen(currentInput);
 }
 function inputNumber(number) {
-  if (currentInput === "0") {
-    if (number === ".") {
+  if (number === ".") {
+    if (!isDot) {
       currentInput += number;
+      isDot = true;
     }
+  } else if (currentInput === "0") {
     currentInput = number;
   } else {
     currentInput += number;

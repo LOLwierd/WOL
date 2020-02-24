@@ -19,7 +19,7 @@ document.addEventListener("keyup", function(event) {
     inputOperator(key);
   if (key === "=" || key === "Enter") equals();
   if (key === "Backspace") clearSingle();
-  console.log(key);
+  if (!(key === "Shift")) console.log(key);
 });
 
 clearBtn.addEventListener("click", () => clearSrc());
